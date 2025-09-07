@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Lens Testnet — Contract Deployer</title>
+  <link rel="stylesheet" href="./styles.css"/>
+  <script src="https://unpkg.com/ethers@6.13.1/dist/ethers.umd.min.js"></script>
+  <!-- IMPORTANT: Put a local Solidity compiler next to this file and name it solc.min.js -->
+  <!-- Example: download a browser build like soljson-v0.8.26+commit...js and rename to solc.min.js -->
+  <script src="./solc.min.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hdr">
+      <div>
+        <h1 class="title">Lens Testnet — Contract Deployer</h1>
+        <div class="sub">Network: <span class="badge">ChainID 37111 (GRASS)</span></div>
+      </div>
+      <div class="row">
+        <button id="btn-connect">Connect Wallet</button>
+        <button id="btn-switch" class="secondary">Switch to Lens Testnet</button>
+      </div>
+    </header>
+
+    <section class="grid">
+      <div class="card">
+        <h2 class="card-title">Deploy ERC‑20 (MintableToken)</h2>
+        <div class="row">
+          <div class="col">
+            <label>Token Name</label>
+            <input id="erc20-name" placeholder="MyToken"/>
+          </div>
+          <div class="col">
+            <label>Symbol</label>
+            <input id="erc20-symbol" placeholder="MTK"/>
+          </div>
+          <div class="col">
+            <label>Initial Supply</label>
+            <input id="erc20-supply" type="number" min="0" step="1" placeholder="1000000"/>
+          </div>
+        </div>
+        <div class="row mt">
+          <button id="btn-deploy-erc20">Deploy ERC‑20</button>
+        </div>
+        <p class="foot">Mints full supply (18 decimals) to deployer. Includes <code>mint(address,uint256)</code> for later mints.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">Deploy ERC‑721 (SimpleNFT)</h2>
+        <div class="row">
+          <div class="col">
+            <label>NFT Name</label>
+            <input id="erc721-name" placeholder="MyNFT"/>
+          </div>
+          <div class="col">
+            <label>Symbol</label>
+            <input id="erc721-symbol" placeholder="MNFT"/>
+          </div>
+        </div>
+        <div class="row mt">
+          <button id="btn-deploy-erc721">Deploy ERC‑721</button>
+        </div>
+        <p class="foot">Includes simple <code>mint(address)</code> function.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">Mint Actions</h2>
+      <div class="grid">
+        <div class="col card inner">
+          <h3>Mint ERC‑20</h3>
+          <label>Token Contract</label>
+          <input id="mint20-address" placeholder="0x... (auto-filled after deploy)"/>
+          <label>Recipient</label>
+          <input id="mint20-to" placeholder="0x..."/>
+          <label>Amount (whole units)</label>
+          <input id="mint20-amount" type="number" min="0" step="1" placeholder="1000"/>
+          <div class="row mt"><button id="btn-mint-erc20">Mint ERC‑20</button></div>
+        </div>
+
+        <div class="col card inner">
+          <h3>Mint ERC‑721</h3>
+          <label>NFT Contract</label>
+          <input id="mint721-address" placeholder="0x... (auto-filled after deploy)"/>
+          <label>Recipient</label>
+          <input id="mint721-to" placeholder="0x..."/>
+          <div class="row mt"><button id="btn-mint-erc721">Mint ERC‑721</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">Status</h2>
+      <pre id="status" class="status">Ready.</pre>
+    </section>
+
+    <footer class="foot mt2">Tip: If you see “solc not found”, place a local <code>solc.min.js</code> next to this file and reload.</footer>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
